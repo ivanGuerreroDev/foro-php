@@ -6,7 +6,7 @@ session_start();
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Forum</title>
+    <title>Foro</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -16,8 +16,8 @@ session_start();
     <section>
         <h1>Publicaciones Recientes</h1>
         <?php
-        include('red_tracker.php');
-        $query = "SELECT * FROM publicaciones ORDER BY fecha_creacion DESC LIMIT 10";
+        include('conexion.php');
+        $query = "SELECT *, username as usuario FROM publicaciones INNER JOIN usuarios ON publicaciones.usuario_id = usuarios.id ORDER BY fecha_creacion DESC LIMIT 10";
         $result = mysqli_query($conn, $query);
 
         while ($row = mysqli_fetch_assoc($result)): ?>
