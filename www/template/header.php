@@ -10,7 +10,7 @@
         <?php endif; ?>
     </ul>
     <div class="search-container">
-        <form action="/buscador.php">
+        <form method="GET" action="/buscador.php">
             <input type="text" placeholder="Search.." name="search">
             <button type="submit">Submit</button>
         </form>
@@ -20,9 +20,8 @@
 <header>
     <nav class="navbar">
         <ul>
-            <li><a href="#home">Inicio</a></li>
+            <li><a href="/index.php">Inicio</a></li>
             <li><a href="#forum">Foro</a></li>
-            <li><a href="#buscador">Buscador</a></li>
         </ul>
     </nav>
 </header>
