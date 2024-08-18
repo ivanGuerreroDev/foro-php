@@ -58,27 +58,6 @@ CREATE TABLE `moderacion` (
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `publicaciones`
---
-
-CREATE TABLE `publicaciones` (
-  `id` int(11) NOT NULL,
-  `usuario_id` int(11) NOT NULL,
-  `titulo` varchar(255) NOT NULL,
-  `contenido` text NOT NULL,
-  `fecha_creacion` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Volcado de datos para la tabla `publicaciones`
---
-
-INSERT INTO `publicaciones` (`id`, `usuario_id`, `titulo`, `contenido`, `fecha_creacion`) VALUES
-(1, 1, 'Primera Publicación', 'Este es el contenido de la primera publicación.', '2024-08-15 10:37:17');
-
--- --------------------------------------------------------
-
---
 -- Estructura de tabla para la tabla `usuarios`
 --
 
@@ -96,6 +75,29 @@ CREATE TABLE `usuarios` (
 
 INSERT INTO `usuarios` (`id`, `username`, `password`, `fecha_registro`) VALUES
 (1, 'Juan Pérez', 'hashed_password', '2024-08-15 10:37:17');
+
+--
+-- Estructura de tabla para la tabla `publicaciones`
+--
+CREATE TABLE publicaciones (
+    id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    usuario_id INT(11) NOT NULL,
+    titulo VARCHAR(255) NOT NULL,
+    contenido TEXT,
+    imagen_url VARCHAR(255), 
+    video_url VARCHAR(255), 
+    fecha_creacion DATETIME NOT NULL,
+    CONSTRAINT fk_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `publicaciones`
+--
+
+INSERT INTO `publicaciones` (`id`, `usuario_id`, `titulo`, `contenido`, `fecha_creacion`) VALUES
+(1, 1, 'Primera Publicación', 'Este es el contenido de la primera publicación.', '2024-08-15 10:37:17');
+
+-- --------------------------------------------------------
 
 --
 -- Índices para tablas volcadas
