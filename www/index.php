@@ -28,7 +28,6 @@ session_start();
                 <div class="post">
                 <h3><?php echo htmlspecialchars($row['titulo']); ?></h3>
                     <p><?php 
-                        // echo content max 200 characters and add ... if content is longer than 200 characters. Add Leer más link.
                         if(strlen($row['contenido']) > 200){
                             echo substr(htmlspecialchars($row['contenido']), 0, 200) . '... <a href="publicacion.php?id=' . $row['id'] . '">Leer más</a>';
                         }else{
