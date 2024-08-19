@@ -10,7 +10,7 @@
         <?php endif; ?>
     </ul>
     <div class="search-container">
-        <form method="GET" action="/buscador.php">
+        <form method="GET" action="buscador.php">
             <input type="text" placeholder="Search.." name="search">
             <button type="submit">Submit</button>
         </form>
