@@ -22,7 +22,6 @@
         <ul>
             <li><a href="index.php">Inicio</a></li>
             <li><a href="#forum">Foro</a></li>
-            <li><a href="comentario.php">Comentario</a></li>
             <li><a href="moderacion.php">Moderacion</a></li>
         </ul>
     </nav>

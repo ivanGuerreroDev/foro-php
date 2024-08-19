@@ -1,12 +1,24 @@
-<!DOCTYPE html>
-<html lang ="es">
-    <head>
-        <meta charset="UTF-8">
-        <title>Agregar Comentario</title>
-        <link rel="stylesheet" href="styles.css">
-</head>
-<form action="comentario.php" method="POST">
-    <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
+<div class="comments">
+    <?php
+    $query = "SELECT * FROM comentarios INNER JOIN usuarios ON comentarios.usuario_id = usuarios.id WHERE publicacion_id = " . $_GET['id']." ORDER BY fecha_comentario DESC";
+    $result = mysqli_query($conn, $query);
+    if(empty($result) || mysqli_num_rows($result) == 0) {
+        echo "<p>No hay comentarios disponibles.</p>";
+    }else{
+        while ($row = mysqli_fetch_assoc($result)): 
+        ?>
+            <div class="comment">
+                <p><?php echo htmlspecialchars($row['contenido']); ?></p>
+                <small>Publicado por: <?php echo htmlspecialchars($row['username']); ?> el <?php echo htmlspecialchars($row['fecha_comentario']); ?></small>
+            </div>
+        <?php endwhile;
+    } ?>
+
+</div>
+
+<form class="comment-form" action="comentario.php" method="POST">
+    <input type="hidden" name="post_id" value="<?php echo $_GET['id']; ?>">
+    <label for="comment">Comentario:</label>
     <textarea name="comment" required></textarea>
     <button type="submit" name="submit_comment">Agregar Comentario</button>
 </form>

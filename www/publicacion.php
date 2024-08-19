@@ -33,6 +33,7 @@ session_start();
                             <small>Publicado por: <?php echo htmlspecialchars($row['usuario']); ?> el <?php echo htmlspecialchars($row['fecha_creacion']); ?></small>
                         </div>
                         <?php
+                        include('comentario.php');
                     }
                 }else{
                     echo "<p>No hay publicaciones disponibles.</p>";

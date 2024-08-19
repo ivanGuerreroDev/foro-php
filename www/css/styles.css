@@ -161,3 +161,46 @@ footer {
     width: 100%;
     bottom: 0;
 }
+
+.comments {
+    margin-top: 20px;
+    text-align: left;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-size: 12px;
+}
+.comments .comment p{
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+.comment-form{
+    margin-top: 20px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-size: 12px;
+    text-align: left;
+}
+.comment-form label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+.comment-form input[type="text"], .comment-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.comment-form button {
+    padding: 10px 20px;
+    background-color: skyblue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
