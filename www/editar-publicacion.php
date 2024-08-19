@@ -62,7 +62,7 @@ $resultado = [
                         "video_url"    => $video_url
                     ];
 
-                    $consultaSQL = "UPDATE publicaciones SET titulo = '" . $publicacion['titulo'] . "', contenido = '" . $publicacion['contenido'] . "'";
+                    $consultaSQL = "UPDATE publicaciones SET titulo = '" . $publicacion['titulo'] . "', contenido = '" . $publicacion['contenido'] . "', estado = 'pendiente'";
                     if (!empty($publicacion['imagen_url'])) {
                         $consultaSQL .= ", imagen_url = '" . $publicacion['imagen_url'] . "'";
                     }

@@ -37,11 +37,9 @@ if (isset($_POST['csrf'])) {
             "video_url"    => $video_url
         ];
 
-        $consultaSQL = "INSERT INTO publicaciones (usuario_id, titulo, contenido, imagen_url, video_url, fecha_creacion)";
-        $consultaSQL .= "values ( '" . $_SESSION['id'] . "', '" . $publicacion['titulo'] . "', '" . $publicacion['contenido'] . "', '" . $publicacion['imagen_url'] . "', '" . $publicacion['video_url'] . "', NOW())";
-            var_dump($consultaSQL)  ;
+        $consultaSQL = "INSERT INTO publicaciones (usuario_id, titulo, contenido, imagen_url, video_url, fecha_creacion, estado)";
+        $consultaSQL .= "values ( '" . $_SESSION['id'] . "', '" . $publicacion['titulo'] . "', '" . $publicacion['contenido'] . "', '" . $publicacion['imagen_url'] . "', '" . $publicacion['video_url'] . "', NOW(), 'pendiente')";
         $result = mysqli_query($conn, $consultaSQL);
-        var_dump($result);
         if ($result) {
             header( 'Location: mis-publicaciones.php' );
         } else {

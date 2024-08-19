@@ -33,29 +33,17 @@ CREATE TABLE `comentarios` (
   `usuario_id` int(11) NOT NULL,
   `contenido` text NOT NULL,
   `fecha_comentario` timestamp NOT NULL DEFAULT current_timestamp()
+  `estado` enum('pendiente','aprobado','rechazado') DEFAULT 'pendiente'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `comentarios`
 --
 
-INSERT INTO `comentarios` (`id`, `publicacion_id`, `usuario_id`, `contenido`, `fecha_comentario`) VALUES
-(1, 1, 1, 'Este es un comentario en la primera publicación.', '2024-08-15 10:37:17');
+INSERT INTO `comentarios` (`id`, `publicacion_id`, `usuario_id`, `contenido`, `fecha_comentario`, `estado`) VALUES
+(1, 1, 1, 'Este es un comentario en la primera publicación.', '2024-08-15 10:37:17', 'aprobado');
 
 -- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `moderacion`
---
-
-CREATE TABLE `moderacion` (
-  `id` int(11) NOT NULL,
-  `publicacion_id` int(11) DEFAULT NULL,
-  `comentario_id` int(11) DEFAULT NULL,
-  `usuario_id` int(11) DEFAULT NULL,
-  `estado` varchar(50) DEFAULT NULL,
-  `fecha_moderacion` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -91,15 +79,16 @@ CREATE TABLE publicaciones (
     contenido TEXT,
     imagen_url VARCHAR(255), 
     video_url VARCHAR(255), 
-    fecha_creacion DATETIME NOT NULL
+    fecha_creacion DATETIME NOT NULL,
+    estado enum('pendiente','aprobado','rechazado') DEFAULT 'pendiente'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `publicaciones`
 --
 
-INSERT INTO `publicaciones` (`id`, `usuario_id`, `titulo`, `contenido`, `fecha_creacion`) VALUES
-(1, 1, 'Primera Publicación', 'Este es el contenido de la primera publicación.', '2024-08-15 10:37:17');
+INSERT INTO `publicaciones` (`id`, `usuario_id`, `titulo`, `contenido`, `fecha_creacion`, `estado`) VALUES
+(1, 1, 'Primera Publicación', 'Este es el contenido de la primera publicación.', '2024-08-15 10:37:17', 'aprobado');
 
 CREATE TABLE `roles` (
   `id` int(11) NOT NULL,
@@ -127,14 +116,6 @@ ALTER TABLE `comentarios`
   ADD KEY `publicacion_id` (`publicacion_id`),
   ADD KEY `usuario_id` (`usuario_id`);
 
---
--- Indices de la tabla `moderacion`
---
-ALTER TABLE `moderacion`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `publicacion_id` (`publicacion_id`),
-  ADD KEY `usuario_id` (`usuario_id`),
-  ADD KEY `fk_comentario_id` (`comentario_id`);
 
 --
 -- Indices de la tabla `publicaciones`
@@ -164,11 +145,6 @@ ALTER TABLE `roles`
 ALTER TABLE `comentarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
---
--- AUTO_INCREMENT de la tabla `moderacion`
---
-ALTER TABLE `moderacion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `publicaciones`

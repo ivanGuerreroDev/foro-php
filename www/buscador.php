@@ -16,7 +16,7 @@ include 'inc/conexion.php';
     <?php
     if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $search = $_GET['search'];
-        $query = "SELECT publicaciones.*, username as usuario FROM publicaciones INNER JOIN usuarios ON publicaciones.usuario_id = usuarios.id WHERE titulo LIKE '%$search%' OR contenido LIKE '%$search%'";
+        $query = "SELECT publicaciones.*, username as usuario FROM publicaciones INNER JOIN usuarios ON publicaciones.usuario_id = usuarios.id WHERE (titulo LIKE '%$search%' OR contenido LIKE '%$search%') AND publicaciones.estado='aprobado'";
         $result = mysqli_query($conn, $query);
     }
     ?>

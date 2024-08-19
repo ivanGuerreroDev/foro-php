@@ -6,9 +6,7 @@ $conn = include "inc/conexion.php";
 function getPublicacionesParaModerar()
 {
     global $conn;
-    $sql = "SELECT p.*, m.estado FROM publicaciones p
-            INNER JOIN moderacion m ON p.id = m.publicacion_id
-            WHERE m.estado = 'pendiente' AND m.comentario_id IS NULL";
+    $sql = "SELECT * FROM publicaciones WHERE estado = 'pendiente'";
     $resultado = mysqli_query($conn, $sql);
     return $resultado;
 }
@@ -17,9 +15,7 @@ function getPublicacionesParaModerar()
 function getComentariosParaModerar()
 {
     global $conn;
-    $sql = "SELECT c.*, m.estado FROM comentarios c
-            INNER JOIN moderacion m ON c.id = m.comentario_id
-            WHERE m.estado = 'pendiente' AND m.publicacion_id IS NULL";
+    $sql = "SELECT * FROM comentarios WHERE estado = 'pendiente'";
     $resultado = mysqli_query($conn, $sql);
     return $resultado;
 }
@@ -28,7 +24,7 @@ function getComentariosParaModerar()
 function moderarPublicacion($idPublicacion, $estado)
 {
     global $conn;
-    $sql = "UPDATE moderacion SET estado = '$estado' WHERE publicacion_id = '$idPublicacion' AND comentario_id IS NULL";
+    $sql = "UPDATE publicaciones SET estado = '$estado' WHERE id = '$idPublicacion'";
     mysqli_query($conn, $sql);
 }
 
@@ -36,7 +32,7 @@ function moderarPublicacion($idPublicacion, $estado)
 function moderarComentario($idComentario, $estado)
 {
     global $conn;
-    $sql = "UPDATE moderacion SET estado = '$estado' WHERE comentario_id = '$idComentario' AND publicacion_id IS NULL";
+    $sql = "UPDATE comentarios SET estado = '$estado' WHERE id = '$idComentario'";
     mysqli_query($conn, $sql);
 }
 
@@ -103,7 +99,7 @@ session_start();
             <?php while ($comentario = mysqli_fetch_assoc($comentarios)) { ?>
                 <li>
                     <h3><?php echo $comentario['contenido']; ?></h3>
-                    <p><?php echo $comentario['fecha_creacion']; ?></p>
+                    <p><?php echo $comentario['fecha_comentario']; ?></p>
                     <form action="" method="post">
                         <input type="hidden" name="idComentario" value="<?php echo $comentario['id']; ?>">
                         <select name="estado">

@@ -40,6 +40,7 @@ session_start();
                             echo htmlspecialchars($row['contenido']);
                         }
                     ?></p>
+                    <small>Estado: <?php echo htmlspecialchars($row['estado']); ?></small>
                     <small>Fecha de publicacion <?php echo htmlspecialchars($row['fecha_creacion']); ?></small>
                     <div class="actions">
                         <a href="publicacion.php?id=<?php echo $row['id']; ?>">Ver publicación</a>

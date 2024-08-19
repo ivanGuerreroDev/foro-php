@@ -18,7 +18,7 @@ session_start();
         <h1>Publicaciones Recientes</h1>
         <?php
         include('inc/conexion.php');
-        $query = "SELECT publicaciones.*, username as usuario FROM publicaciones INNER JOIN usuarios ON publicaciones.usuario_id = usuarios.id ORDER BY fecha_creacion DESC LIMIT 10";
+        $query = "SELECT publicaciones.*, username as usuario FROM publicaciones INNER JOIN usuarios ON publicaciones.usuario_id = usuarios.id WHERE publicaciones.estado='aprobado' ORDER BY fecha_creacion DESC LIMIT 10";
         $result = mysqli_query($conn, $query);
         if(empty($result) || mysqli_num_rows($result) == 0) {
             echo "<p>No hay publicaciones disponibles.</p>";
