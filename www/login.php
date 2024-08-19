@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html leng="es">
 
@@ -22,7 +25,6 @@
 </html>
 
 <?php
-session_start();
 include 'inc/conexion.php';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
