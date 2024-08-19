@@ -15,7 +15,7 @@
     } ?>
 
 </div>
-
+<?php if (isset($_SESSION['username'])): ?>
 <form class="comment-form" action="comentario.php" method="POST">
     <input type="hidden" name="post_id" value="<?php echo $_GET['id']; ?>">
     <label for="comment">Comentario:</label>
@@ -26,7 +26,9 @@
 include 'inc/conexion.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $contenido= $_POST['comment'];
-    $sql = "INSERT INTO comentarios (contenido) VALUES ('$contenido')";
+    $post_id = $_POST['post_id'];
+    $usuario_id = $_SESSION['id'];
+    $sql = "INSERT INTO comentarios (contenido, publicacion_id, usuario_id) VALUES ('$contenido', '$post_id', '$usuario_id')";
     if($conn->query($sql) === TRUE){
         echo "Se agregó el comentario";
     } else{
@@ -35,4 +37,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $conn->close();
 }
 ?>
-</html>
+<?php endif; ?>
