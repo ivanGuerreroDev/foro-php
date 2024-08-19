@@ -36,11 +36,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Manejo de la foto de perfil
     if ($profile_picture['error'] === UPLOAD_ERR_OK) {
+        //create folder if not exists uploads/
+        if (!file_exists('uploads')) {
+            mkdir('uploads', 0777, true);
+        }
         $upload_dir = 'uploads/';
         $upload_file = $upload_dir . basename($profile_picture['name']);
         
         if (move_uploaded_file($profile_picture['tmp_name'], $upload_file)) {
-            $stmt = $conn->prepare('UPDATE usuarios SET profile_picture = ? WHERE username = ?');
+            $stmt = $conn->prepare('UPDATE usuarios SET foto_perfil = ? WHERE username = ?');
             $stmt->bind_param('ss', $upload_file, $new_username);
             $stmt->execute();
         } else {

@@ -23,18 +23,23 @@ $user = $result->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Perfil de Usuario</title>
     <link rel="stylesheet" type="text/css" href="css/styles_vistas.css">
 </head>
+
 <body>
-    <h1>Perfil de Usuario</h1>
-    <p>Nombre de Usuario: <?php echo htmlspecialchars($user['username']); ?></p>
-    <?php if (!empty($user['profile_picture'])): ?>
-        <img src="<?php echo htmlspecialchars($user['profile_picture']); ?>" alt="Foto de Perfil" />
-    <?php endif; ?>
-    <a href="gestion.php">Actualizar Perfil</a>
-    <button onclick="window.location.href='index.php'">Volver al Inicio</button>
+    <div class="content">
+        <h1>Perfil de Usuario</h1>
+        <?php if (!empty($user['foto_perfil'])): ?>
+            <img src="<?php echo htmlspecialchars($user['foto_perfil']); ?>" alt="Foto de Perfil" height="300px"/>
+        <?php endif; ?>
+        <p>Nombre de Usuario: <?php echo htmlspecialchars($user['username']); ?></p>
+        <a href="gestion.php">Actualizar Perfil</a>
+        <button onclick="window.location.href='index.php'">Volver al Inicio</button>
+    </div>
 </body>
+
 </html>
