@@ -1,5 +1,6 @@
 <?php
 session_start();
+include 'inc/conexion.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -70,9 +71,3 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </body>
 
 </html>
-
-<?php
-include 'inc/conexion.php';
-
-
-?>
