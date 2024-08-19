@@ -63,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 echo "Contraseña incorrecta";
             }
         } else {
-            echo "Acceso denegado. Solo los administradores pueden iniciar sesión.";
+            echo "Acceso denegado.";
         }
     } else {
         echo "Usuario no registrado";

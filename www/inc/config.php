@@ -1,6 +1,6 @@
 <?php
-$host = "foro-php-mysql";
-$username = "dbuser";
-$password = "dbpass";
+$host = "localhost";
+$username = "root";
+$password = "";
 $dbname = "dbname";
 ?>
