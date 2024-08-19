@@ -21,9 +21,13 @@
     <nav class="navbar">
         <ul>
             <li><a href="index.php">Inicio</a></li>
-            <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin'): ?>
-                <li><a href="Moderacion.php">Moderacion</a></li>
+            <?php if (isset($_SESSION['username'])): ?>
+                <li><a href="mis-publicaciones.php">Mis publicaciones</a></li>
             <?php endif; ?>
+            <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin'): ?>
+                <li><a href="moderacion.php">Moderacion</a></li>
+            <?php endif; ?>
+            
         </ul>
     </nav>
 </header>

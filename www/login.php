@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($result->num_rows > 0) {
         // El usuario existe, ahora verifica el rol y la contraseña
-        $sql = "SELECT usuarios.username, usuarios.password, roles.rol AS rol 
+        $sql = "SELECT usuarios.id, usuarios.username, usuarios.password, roles.rol AS rol 
                 FROM usuarios 
                 JOIN roles ON usuarios.rol_id = roles.id 
                 WHERE usuarios.username = ?";
@@ -55,6 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Guarda el username y el rol en la sesión
                 $_SESSION['username'] = $username;
                 $_SESSION['rol'] = $row['rol']; // Guarda el nombre del rol
+                $_SESSION['id'] = $row['id']; // Guarda el id del usuario
 
                 // Redirige al usuario al archivo index.php
                 header('Location: index.php');

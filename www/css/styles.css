@@ -138,7 +138,6 @@ main {
     width: 60%;
     margin: 40px auto;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
 }
 
 h1 {
@@ -203,4 +202,74 @@ footer {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+.actions{
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+.actions a{
+    text-decoration: none;
+    color: white;
+    background-color: skyblue;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.form{
+    margin-top: 20px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-size: 12px;
+    text-align: left;
+}
+.form label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+.form input[type="text"], .form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.form button,
+.form input[type="submit"] {
+    padding: 10px 20px;
+    background-color: skyblue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.alert{
+    padding: 10px;
+    color: white;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+.alert.alert-success {
+    background-color: #4CAF50;
+}
+.alert.alert-warning {
+    background-color: #ff9800;
+}
+.alert.alert-info {
+    background-color: #2196F3;
+}
+.alert.alert-danger {
+    background-color: #f44336;
+}
+.new-post-btn{
+    padding: 10px 20px;
+    background-color: skyblue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
 }
