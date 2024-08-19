@@ -77,22 +77,21 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id`, `username`, `password`, `fecha_registro`, `foto_perfil`, `rol_id`) VALUES
-(1, 'Juan Pérez', 'hashed_password', '2024-08-15 10:37:17', NULL, NULL),
-(2, 'Vayne', '$2y$10$8ARqg6Z.eUUbj4hF5Xjc5eQlVwolnQPVpDQud.oz25A/HnkYkaLne', '2024-08-18 21:09:02', NULL, 1),
-(3, 'Juan', '$2y$10$MQQHSjUzQLzhSgnBOqu.2eR2cr/5HbgiIqUPS5IPfvVkQb6Dc9zg.', '2024-08-18 23:29:40', NULL, NULL);
+(1, 'admin', '$2y$10$FBFcqMKq3g/JKMMvyiWQAeYSiONvsYwILLru4z0uqbu4q3PXZotIW', '2024-08-15 10:37:17', NULL, 1),
+(2, 'Vayne', '$2y$10$8ARqg6Z.eUUbj4hF5Xjc5eQlVwolnQPVpDQud.oz25A/HnkYkaLne', '2024-08-18 21:09:02', NULL, 2),
+(3, 'Juan', '$2y$10$MQQHSjUzQLzhSgnBOqu.2eR2cr/5HbgiIqUPS5IPfvVkQb6Dc9zg.', '2024-08-18 23:29:40', NULL, 2);
 
 --
 -- Estructura de tabla para la tabla `publicaciones`
 --
 CREATE TABLE publicaciones (
-    id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    id INT(11) NOT NULL,
     usuario_id INT(11) NOT NULL,
     titulo VARCHAR(255) NOT NULL,
     contenido TEXT,
     imagen_url VARCHAR(255), 
     video_url VARCHAR(255), 
-    fecha_creacion DATETIME NOT NULL,
-    CONSTRAINT fk_usuario FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+    fecha_creacion DATETIME NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -113,6 +112,7 @@ CREATE TABLE `roles` (
 
 INSERT INTO `roles` (`id`, `rol`) VALUES
 (1, 'admin');
+(2, 'publisher');
 -- --------------------------------------------------------
 
 --
@@ -148,7 +148,7 @@ ALTER TABLE `publicaciones`
 --
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`username`);
+  ADD UNIQUE KEY `username` (`username`),
   ADD KEY `fk_usuarios_roles` (`rol_id`);
 
 ALTER TABLE `roles`

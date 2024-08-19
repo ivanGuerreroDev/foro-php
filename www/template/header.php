@@ -21,8 +21,9 @@
     <nav class="navbar">
         <ul>
             <li><a href="index.php">Inicio</a></li>
-            <li><a href="#forum">Foro</a></li>
-            <li><a href="moderacion.php">Moderacion</a></li>
+            <?php if (isset($_SESSION['rol']) && $_SESSION['rol'] == 'admin'): ?>
+                <li><a href="Moderacion.php">Moderacion</a></li>
+            <?php endif; ?>
         </ul>
     </nav>
 </header>

@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html leng="es">
-    <head>
-        <meta charset="UTF-8">
-        <title>Login</title>
-        <link rel="stylesheet" type="text/css" href="css/styles_vistas.css">
-    </head>
-    <body>
-        <form action="login.php" method="POST">
-            <h1>Inicio de Sesión</h1>
-            <label for="username">Nombre de Usuario:</label>
-            <input type="text" id="username" name="username" required><br>
-            <label for="password">Contraseña:</label>
-            <input type="password" id="password" name="password" required><br>
-            <button type="submit">Iniciar Sesión</button>
-            <button onclick="window.location.href='index.php'">Volver al Inicio</button>
-        </form>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="css/styles_vistas.css">
+</head>
+
+<body>
+    <form action="login.php" method="POST">
+        <h1>Inicio de Sesión</h1>
+        <label for="username">Nombre de Usuario:</label>
+        <input type="text" id="username" name="username" required><br>
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password" required><br>
+        <button type="submit">Iniciar Sesión</button>
+        <button onclick="window.location.href='index.php'">Volver al Inicio</button>
+    </form>
 </body>
+
 </html>
 
 <?php
@@ -38,12 +41,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $sql = "SELECT usuarios.username, usuarios.password, roles.rol AS rol 
                 FROM usuarios 
                 JOIN roles ON usuarios.rol_id = roles.id 
-                WHERE usuarios.username = ? AND roles.rol = 'admin'";
+                WHERE usuarios.username = ?";
         $stmt = $conn->prepare($sql);
+        var_dump($username);
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
-
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
 
