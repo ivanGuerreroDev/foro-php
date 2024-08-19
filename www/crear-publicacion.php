@@ -12,6 +12,13 @@ $resultado = [
     'mensaje' => ''
 ];
 if (isset($_POST['csrf'])) {
+        // create folder if not exists uploads/imagenes and uploads/videos
+        if (!file_exists('uploads/imagenes')) {
+            mkdir('uploads/imagenes', 0777, true);
+        }
+        if (!file_exists('uploads/videos')) {
+            mkdir('uploads/videos', 0777, true);
+        }
         // Procesar la imagen
         $imagen_url = '';
         if (!empty($_FILES['imagen']['name'])) {

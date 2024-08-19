@@ -28,6 +28,15 @@ session_start();
                     $row = mysqli_fetch_assoc($result);
             ?>
                     <div class="post">
+                        <?php if (!empty($row['imagen_url'])) : ?>
+                            <img src="<?php echo $row['imagen_url']; ?>" alt="<?php echo $row['titulo']; ?>" height='300px'>
+                        <?php endif; ?>
+                        <?php if (!empty($row['video_url'])) : ?>
+                            <video controls>
+                                <source src="<?php echo $row['video_url']; ?>" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        <?php endif; ?>
                         <h3><?php echo htmlspecialchars($row['titulo']); ?></h3>
                         <p><?php echo htmlspecialchars($row['contenido']); ?></p>
                         <small>Publicado por: <?php echo htmlspecialchars($row['usuario']); ?> el <?php echo htmlspecialchars($row['fecha_creacion']); ?></small>
