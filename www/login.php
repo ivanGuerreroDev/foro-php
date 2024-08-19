@@ -43,7 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 JOIN roles ON usuarios.rol_id = roles.id 
                 WHERE usuarios.username = ?";
         $stmt = $conn->prepare($sql);
-        var_dump($username);
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
