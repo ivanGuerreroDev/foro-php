@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if (isset($_SESSION['id']) && $_SESSION['id'] == $row['user_id']) {
                 ?>
                     <div class="comment-actions">
-                        <a href="eliminar-comentario.php?id=<?php echo $row['id']; ?>">Eliminar</a>
+                        <a href="eliminar-comentario.php?id=<?php echo $row['id']; ?>&post=<?php echo $_GET['id']; ?>">Eliminar</a>
                     </div>
                 <?php
                 }

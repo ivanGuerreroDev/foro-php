@@ -12,7 +12,7 @@ $consultaSQL = "DELETE FROM comentarios WHERE id = $id";
 
 $result = mysqli_query($conn, $consultaSQL);
 if ($result) {
-    header('Location: publicacion.php?id=' . $_GET['id']);
+    header('Location: publicacion.php?id=' . $_GET['post']);
 } else {
     $resultado['error'] = true;
     $resultado['mensaje'] = 'Error al eliminar la comentario';

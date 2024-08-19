@@ -1,5 +1,5 @@
 <nav class="main-nav">
-    <img src="https://1000logos.net/wp-content/uploads/2023/01/Myspace-Logo-2004.png" alt="Logo">
+    <img src="https://media.ambito.com/p/d9c05f0c7071deefa00d7353c919fdff/adjuntos/239/imagenes/040/743/0040743943/taringa-logo.jpg" alt="Logo">
     <ul>
         <?php if (isset($_SESSION['username'])): ?>
             <li><a href="perfil.php">Perfil</a></li>
