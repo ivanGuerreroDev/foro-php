@@ -1,3 +1,58 @@
+<?php
+session_start();
+
+// Verifica si el usuario está autenticado
+if (!isset($_SESSION['username'])) {
+    header('Location: index.php'); // Redirige si no está autenticado
+    exit();
+}
+
+// Incluye el archivo de conexión a la base de datos
+include 'inc/conexion.php'; // Asegúrate de que la ruta sea correcta
+
+// Recupera el nombre de usuario actual
+$username = $_SESSION['username'];
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $new_username = $_POST['new_username'];
+    $new_password = $_POST['new_password'];
+    $profile_picture = $_FILES['profile_picture'];
+
+    // Actualiza el nombre de usuario si se ha cambiado
+    if (!empty($new_username) && $new_username !== $username) {
+        $stmt = $conn->prepare('UPDATE usuarios SET username = ? WHERE username = ?');
+        $stmt->bind_param('ss', $new_username, $username);
+        $stmt->execute();
+        $_SESSION['username'] = $new_username; // Actualiza la sesión con el nuevo nombre de usuario
+    }
+
+    // Actualiza la contraseña si se ha proporcionado
+    if (!empty($new_password)) {
+        $hashed_password = password_hash($new_password, PASSWORD_BCRYPT);
+        $stmt = $conn->prepare('UPDATE usuarios SET password = ? WHERE username = ?');
+        $stmt->bind_param('ss', $hashed_password, $username);
+        $stmt->execute();
+    }
+
+    // Manejo de la foto de perfil
+    if ($profile_picture['error'] === UPLOAD_ERR_OK) {
+        $upload_dir = 'uploads/';
+        $upload_file = $upload_dir . basename($profile_picture['name']);
+        
+        if (move_uploaded_file($profile_picture['tmp_name'], $upload_file)) {
+            $stmt = $conn->prepare('UPDATE usuarios SET profile_picture = ? WHERE username = ?');
+            $stmt->bind_param('ss', $upload_file, $new_username);
+            $stmt->execute();
+        } else {
+            echo "Error al subir la foto de perfil.";
+        }
+    }
+
+    header('Location: perfil.php'); // Redirige a la página de perfil o a donde desees
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -19,3 +74,4 @@
     </form>
 </body>
 </html>
+

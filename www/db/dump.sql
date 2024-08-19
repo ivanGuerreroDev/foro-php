@@ -50,9 +50,11 @@ INSERT INTO `comentarios` (`id`, `publicacion_id`, `usuario_id`, `contenido`, `f
 
 CREATE TABLE `moderacion` (
   `id` int(11) NOT NULL,
-  `administrador_id` int(11) NOT NULL,
-  `accion` varchar(50) NOT NULL,
-  `fecha_accion` timestamp NOT NULL DEFAULT current_timestamp()
+  `publicacion_id` int(11) DEFAULT NULL,
+  `comentario_id` int(11) DEFAULT NULL,
+  `usuario_id` int(11) DEFAULT NULL,
+  `estado` varchar(50) DEFAULT NULL,
+  `fecha_moderacion` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -66,15 +68,18 @@ CREATE TABLE `usuarios` (
   `username` varchar(50) NOT NULL,
   `password` varchar(255) NOT NULL,
   `fecha_registro` timestamp NOT NULL DEFAULT current_timestamp(),
-  `foto_perfil` varchar(255) DEFAULT NULL
+  `foto_perfil` varchar(255) DEFAULT NULL,
+  `rol_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`id`, `username`, `password`, `fecha_registro`) VALUES
-(1, 'Juan Pérez', 'hashed_password', '2024-08-15 10:37:17');
+INSERT INTO `usuarios` (`id`, `username`, `password`, `fecha_registro`, `foto_perfil`, `rol_id`) VALUES
+(1, 'Juan Pérez', 'hashed_password', '2024-08-15 10:37:17', NULL, NULL),
+(2, 'Vayne', '$2y$10$8ARqg6Z.eUUbj4hF5Xjc5eQlVwolnQPVpDQud.oz25A/HnkYkaLne', '2024-08-18 21:09:02', NULL, 1),
+(3, 'Juan', '$2y$10$MQQHSjUzQLzhSgnBOqu.2eR2cr/5HbgiIqUPS5IPfvVkQb6Dc9zg.', '2024-08-18 23:29:40', NULL, NULL);
 
 --
 -- Estructura de tabla para la tabla `publicaciones`
@@ -97,6 +102,17 @@ CREATE TABLE publicaciones (
 INSERT INTO `publicaciones` (`id`, `usuario_id`, `titulo`, `contenido`, `fecha_creacion`) VALUES
 (1, 1, 'Primera Publicación', 'Este es el contenido de la primera publicación.', '2024-08-15 10:37:17');
 
+CREATE TABLE `roles` (
+  `id` int(11) NOT NULL,
+  `rol` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `roles`
+--
+
+INSERT INTO `roles` (`id`, `rol`) VALUES
+(1, 'admin');
 -- --------------------------------------------------------
 
 --
@@ -116,7 +132,9 @@ ALTER TABLE `comentarios`
 --
 ALTER TABLE `moderacion`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `administrador_id` (`administrador_id`);
+  ADD KEY `publicacion_id` (`publicacion_id`),
+  ADD KEY `usuario_id` (`usuario_id`),
+  ADD KEY `fk_comentario_id` (`comentario_id`);
 
 --
 -- Indices de la tabla `publicaciones`
@@ -131,6 +149,10 @@ ALTER TABLE `publicaciones`
 ALTER TABLE `usuarios`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `username` (`username`);
+  ADD KEY `fk_usuarios_roles` (`rol_id`);
+
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -160,6 +182,8 @@ ALTER TABLE `publicaciones`
 ALTER TABLE `usuarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
+ALTER TABLE `roles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- Restricciones para tablas volcadas
 --
@@ -175,13 +199,18 @@ ALTER TABLE `comentarios`
 -- Filtros para la tabla `moderacion`
 --
 ALTER TABLE `moderacion`
-  ADD CONSTRAINT `moderacion_ibfk_1` FOREIGN KEY (`administrador_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `fk_comentario_id` FOREIGN KEY (`comentario_id`) REFERENCES `comentarios` (`id`),
+  ADD CONSTRAINT `moderacion_ibfk_1` FOREIGN KEY (`publicacion_id`) REFERENCES `publicaciones` (`id`),
+  ADD CONSTRAINT `moderacion_ibfk_2` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`);
 
 --
 -- Filtros para la tabla `publicaciones`
 --
 ALTER TABLE `publicaciones`
   ADD CONSTRAINT `publicaciones_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE;
+
+ALTER TABLE `usuarios`
+  ADD CONSTRAINT `fk_usuarios_roles` FOREIGN KEY (`rol_id`) REFERENCES `roles` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

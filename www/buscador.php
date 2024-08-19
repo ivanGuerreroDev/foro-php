@@ -27,13 +27,7 @@ include 'inc/conexion.php';
                 <?php while ($row = mysqli_fetch_assoc($result)) : ?>
                     <div class="post">
                         <h3><?php echo htmlspecialchars($row['titulo']); ?></h3>
-                        <p><?php 
-                            if(strlen($row['contenido']) > 200){
-                                echo substr(htmlspecialchars($row['contenido']), 0, 200) . '... <a href="publicacion.php?id=' . $row['id'] . '">Leer más</a>';
-                            }else{
-                                echo htmlspecialchars($row['contenido']). '... <a href="publicacion.php?id=' . $row['id'] . '">Leer más</a>';
-                            }
-                        ?></p>
+                        <p><?php echo htmlspecialchars($row['contenido']); ?></p>
                         <small>Publicado por: <?php echo htmlspecialchars($row['usuario']); ?> el <?php echo htmlspecialchars($row['fecha_creacion']); ?></small>
                     </div>
                 <?php endwhile; ?>

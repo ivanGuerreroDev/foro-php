@@ -21,21 +21,52 @@
 <?php
 session_start();
 include 'inc/conexion.php';
-if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $password = $_POST['password'];
-    $sql = "SELECT * FROM usuarios WHERE username = '$username' ";
-    $result = $conn->query($sql);
-    if ($result->num_rows > 0){
-        $row = $result->fetch_assoc();
-        if (password_verify($password, $row['password'])) {
-            $_SESSION['username'] = $username;
-            header('Location: index.php');
+
+    // Consulta para verificar si el usuario existe
+    $sql = "SELECT * FROM usuarios WHERE username = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        // El usuario existe, ahora verifica el rol y la contraseña
+        $sql = "SELECT usuarios.username, usuarios.password, roles.rol AS rol 
+                FROM usuarios 
+                JOIN roles ON usuarios.rol_id = roles.id 
+                WHERE usuarios.username = ? AND roles.rol = 'admin'";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+
+            // Verifica la contraseña
+            if (password_verify($password, $row['password'])) {
+                // Guarda el username y el rol en la sesión
+                $_SESSION['username'] = $username;
+                $_SESSION['rol'] = $row['rol']; // Guarda el nombre del rol
+
+                // Redirige al usuario al archivo index.php
+                header('Location: index.php');
+                exit();
+            } else {
+                echo "Contraseña incorrecta";
+            }
         } else {
-            echo "Contraseña incorrecta";
+            echo "Acceso denegado. Solo los administradores pueden iniciar sesión.";
         }
     } else {
-        echo "Usuario no encontrado";
+        echo "Usuario no registrado";
     }
+
+    $stmt->close();
     $conn->close();
 }
+?>
