@@ -32,7 +32,7 @@ CREATE TABLE `comentarios` (
   `publicacion_id` int(11) NOT NULL,
   `usuario_id` int(11) NOT NULL,
   `contenido` text NOT NULL,
-  `fecha_comentario` timestamp NOT NULL DEFAULT current_timestamp()
+  `fecha_comentario` timestamp NOT NULL DEFAULT current_timestamp(),
   `estado` enum('pendiente','aprobado','rechazado') DEFAULT 'pendiente'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -100,7 +100,7 @@ CREATE TABLE `roles` (
 --
 
 INSERT INTO `roles` (`id`, `rol`) VALUES
-(1, 'admin');
+(1, 'admin'),
 (2, 'publisher');
 -- --------------------------------------------------------
 
@@ -170,14 +170,6 @@ ALTER TABLE `roles`
 ALTER TABLE `comentarios`
   ADD CONSTRAINT `comentarios_ibfk_1` FOREIGN KEY (`publicacion_id`) REFERENCES `publicaciones` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `comentarios_ibfk_2` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE;
-
---
--- Filtros para la tabla `moderacion`
---
-ALTER TABLE `moderacion`
-  ADD CONSTRAINT `fk_comentario_id` FOREIGN KEY (`comentario_id`) REFERENCES `comentarios` (`id`),
-  ADD CONSTRAINT `moderacion_ibfk_1` FOREIGN KEY (`publicacion_id`) REFERENCES `publicaciones` (`id`),
-  ADD CONSTRAINT `moderacion_ibfk_2` FOREIGN KEY (`usuario_id`) REFERENCES `usuarios` (`id`);
 
 --
 -- Filtros para la tabla `publicaciones`
