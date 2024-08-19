@@ -32,7 +32,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         echo "El nombre de usuario '$username' ya existe, intente nuevamente.";
     } else {
         // Insertar el nuevo usuario, el rol se asignará desde la base de datos (asumiendo una configuración por defecto)
-        $sql = "INSERT INTO usuarios (username, password) VALUES ('$username', '$password')";
+        $sql = "INSERT INTO usuarios (username, password, rol_id) VALUES ('$username', '$password', 2)";
         
         if($conn->query($sql) === TRUE){
             echo "Registro exitoso";
