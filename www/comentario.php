@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 <div class="comments">
     <?php
-    $query = "SELECT *, usuarios.id as user_id FROM comentarios INNER JOIN usuarios ON comentarios.usuario_id = usuarios.id WHERE publicacion_id = " . $_GET['id'] . " AND estado='aprobado' ORDER BY fecha_comentario DESC";
+    $query = "SELECT comentarios.*, usuarios.username, usuarios.id as user_id FROM comentarios INNER JOIN usuarios ON comentarios.usuario_id = usuarios.id WHERE publicacion_id = " . $_GET['id'] . " AND estado='aprobado' ORDER BY fecha_comentario DESC";
     $result = mysqli_query($conn, $query);
     if (empty($result) || mysqli_num_rows($result) == 0) {
         echo "<p>No hay comentarios disponibles.</p>";
